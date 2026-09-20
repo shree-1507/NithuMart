@@ -1,0 +1,3 @@
+C:/Dev/NithuMart/backend/build/CMakeFiles/NithuMartBackend.dir
+C:/Dev/NithuMart/backend/build/CMakeFiles/ALL_BUILD.dir
+C:/Dev/NithuMart/backend/build/CMakeFiles/ZERO_CHECK.dir

@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Dev/NithuMart/backend/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
