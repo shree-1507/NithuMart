@@ -8,6 +8,9 @@ int main()
     Database::initialize();
     Routes::registerAll();
 
+    // Serve frontend files
+    drogon::app().setDocumentRoot("../frontend");
+
     drogon::app()
         .setThreadNum(4)
         .addListener("127.0.0.1", 8080)

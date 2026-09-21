@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Seller - NithuMart</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>NithuMart</h1>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="orders.html">Orders</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main class="products-page">
+
+        <h2>Seller Dashboard</h2>
+
+        <!-- Add Product -->
+
+        <section class="form-container">
+
+            <h3>Add Product</h3>
+
+            <form id="productForm">
+
+                <label>Product Name</label>
+                <input type="text" id="productName" required>
+
+                <label>Description</label>
+                <input type="text" id="productDescription" required>
+
+                <label>Price</label>
+                <input type="number" id="productPrice" required>
+
+                <label>Category</label>
+                <select id="productCategory" required>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Grocery">Grocery</option>
+                    <option value="Books">Books</option>
+                </select>
+
+                <label>Stock</label>
+                <input type="number" id="productStock" required>
+
+                <button type="submit">
+                    Add Product
+                </button>
+
+            </form>
+
+            <p id="productMessage"></p>
+
+        </section>
+
+
+        <!-- Seller Products -->
+
+        <section>
+
+            <h3>My Products</h3>
+
+            <div id="sellerProducts">
+                <p>Loading products...</p>
+            </div>
+
+        </section>
+
+
+        <!-- Seller Orders -->
+
+        <section>
+
+            <h3>Received Orders</h3>
+
+            <div id="sellerOrders">
+                <p>Loading orders...</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/app.js"></script>
+
+    <script>
+        loadSellerProducts();
+        loadSellerOrders();
+    </script>
+
+</body>
+
+</html>

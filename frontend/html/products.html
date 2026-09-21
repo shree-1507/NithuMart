@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products - NithuMart</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>NithuMart</h1>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="orders.html">Orders</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main class="products-page">
+
+        <h2>Products</h2>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search products..."
+            >
+
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Books">Books</option>
+            </select>
+
+            <button onclick="loadProducts()">
+                Search
+            </button>
+
+        </div>
+
+        <div id="productList" class="product-list">
+            <p>Loading products...</p>
+        </div>
+
+    </main>
+
+    <script src="../js/app.js"></script>
+
+    <script>
+        loadProducts();
+    </script>
+
+</body>
+</html>
