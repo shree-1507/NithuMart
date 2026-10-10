@@ -6,7 +6,7 @@ ENV VCPKG_BUILD_TYPE=release
 ENV VCPKG_MAX_CONCURRENCY=2
 
 RUN apt-get update && apt-get install -y \
-    build-essential cmake ninja-build git curl zip unzip tar pkg-config python3 \
+    build-essential cmake ninja-build git curl zip unzip tar pkg-config python3 bison \
     autoconf autoconf-archive automake libtool \
     libssl-dev libpq-dev uuid-dev zlib1g-dev libjsoncpp-dev \
     && rm -rf /var/lib/apt/lists/*
