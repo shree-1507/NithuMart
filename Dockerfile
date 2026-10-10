@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 RUN git clone https://github.com/microsoft/vcpkg.git ${VCPKG_ROOT} \
     && ${VCPKG_ROOT}/bootstrap-vcpkg.sh -disableMetrics
 
-RUN ${VCPKG_ROOT}/vcpkg install drogon:x64-linux
+RUN ${VCPKG_ROOT}/vcpkg install "drogon[postgres]:x64-linux"
 
 WORKDIR /app
 COPY . .
