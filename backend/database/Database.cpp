@@ -1,3 +1,4 @@
+
 #include "Database.h"
 
 #include <drogon/drogon.h>
@@ -7,25 +8,28 @@
 #include <stdexcept>
 #include <string>
 
-void Database::initialize()
+static std::string getEnv(const char* name)
 {
-    const char *password =
-        std::getenv("NITHUMART_DB_PASSWORD");
+    const char* value = std::getenv(name);
 
-    if (password == nullptr ||
-        std::string(password).empty())
+    if (value == nullptr || std::string(value).empty())
     {
         throw std::runtime_error(
-            "NITHUMART_DB_PASSWORD is not set");
+            std::string(name) + " is not set");
     }
 
+    return value;
+}
+
+void Database::initialize()
+{
     drogon::orm::PostgresConfig config;
 
-    config.host = "127.0.0.1";
-    config.port = 5432;
-    config.databaseName = "NithuMart";
-    config.username = "postgres";
-    config.password = password;
+    config.host = getEnv("NITHUMART_DB_HOST");
+    config.port = std::stoi(getEnv("NITHUMART_DB_PORT"));
+    config.databaseName = getEnv("NITHUMART_DB_NAME");
+    config.username = getEnv("NITHUMART_DB_USER");
+    config.password = getEnv("NITHUMART_DB_PASSWORD");
 
     config.connectionNumber = 4;
     config.name = "default";
