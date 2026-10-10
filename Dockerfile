@@ -4,6 +4,7 @@ FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VCPKG_ROOT=/opt/vcpkg
 ENV VCPKG_BUILD_TYPE=release
+ENV VCPKG_MAX_CONCURRENCY=2
 
 RUN apt-get update && apt-get install -y \
     build-essential cmake ninja-build git curl zip unzip tar pkg-config \
