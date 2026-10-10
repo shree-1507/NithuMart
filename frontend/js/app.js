@@ -46,13 +46,10 @@ if (registerForm) {
 
         } catch (error) {
 
-           
+            console.error(error);
 
-    console.error(error);
-
-    document.getElementById("message").innerText =
-        "Error: " + error.message;
-
+            document.getElementById("message").innerText =
+                "Error: " + error.message;
 
         }
 
@@ -727,12 +724,12 @@ if (productForm) {
 
             } catch (error) {
 
-                 console.error(error);
+                console.error(error);
 
-    document.getElementById(
-        "productMessage"
-    ).innerText =
-        "Error: " + error.message;
+                document.getElementById(
+                    "productMessage"
+                ).innerText =
+                    "Error: " + error.message;
 
             }
 
@@ -824,7 +821,27 @@ async function loadSellerProducts() {
 
                 <p>Category: ${product.category}</p>
 
-                <p>Stock: ${product.stock}</p>
+                <p><b>Stock:</b></p>
+
+                <input
+                    type="number"
+                    id="stock-${product.id}"
+                    value="${product.stock}"
+                    min="0"
+                    style="width:120px; padding:8px; margin-bottom:8px;"
+                >
+
+                <br>
+
+                <button onclick="updateStock(${product.id})">
+                    Update Stock
+                </button>
+
+                <br><br>
+
+                <button onclick="editProduct(${product.id})">
+                    Edit
+                </button>
 
                 <button onclick="deleteProduct(${product.id})">
                     Delete
@@ -1298,4 +1315,195 @@ async function adminDeleteProduct(productId) {
 
     }
 
+}
+
+
+// ===============================
+// SELLER - UPDATE STOCK
+// ===============================
+
+async function updateStock(productId) {
+
+    const stockInput =
+        document.getElementById(`stock-${productId}`);
+
+    if (!stockInput) {
+        alert("Stock field not found.");
+        return;
+    }
+
+    const newStock = Number(stockInput.value);
+
+    if (!Number.isInteger(newStock) || newStock < 0) {
+        alert("Please enter a valid stock quantity.");
+        return;
+    }
+
+    try {
+
+        const getResponse = await fetch(
+            `${API}/products/${productId}`
+        );
+
+        const product = await getResponse.json();
+
+        if (!getResponse.ok) {
+            alert(
+                product.message ||
+                product.error ||
+                "Product not found."
+            );
+            return;
+        }
+
+        const response = await fetch(
+            `${API}/products/${productId}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: product.name,
+                    description: product.description || "",
+                    price: Number(product.price),
+                    category: product.category,
+                    stock: newStock
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(
+                data.message ||
+                data.error ||
+                "Stock update failed."
+            );
+            return;
+        }
+
+        alert("Stock updated successfully!");
+        loadSellerProducts();
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to update stock.");
+    }
+}
+
+
+// ===============================
+// SELLER - EDIT PRODUCT
+// ===============================
+
+async function editProduct(productId) {
+
+    try {
+
+        // Get the current product first.
+        // This keeps all existing product details safe.
+        const getResponse = await fetch(
+            `${API}/products/${productId}`
+        );
+
+        const product = await getResponse.json();
+
+        if (!getResponse.ok) {
+            alert(
+                product.message ||
+                product.error ||
+                "Product not found."
+            );
+            return;
+        }
+
+        const name = prompt(
+            "Enter product name:",
+            product.name || ""
+        );
+
+        if (name === null) return;
+
+        const price = prompt(
+            "Enter price:",
+            product.price ?? ""
+        );
+
+        if (price === null) return;
+
+        const category = prompt(
+            "Enter category:",
+            product.category || ""
+        );
+
+        if (category === null) return;
+
+        const stock = prompt(
+            "Enter stock:",
+            product.stock ?? ""
+        );
+
+        if (stock === null) return;
+
+        const newPrice = Number(price);
+        const newStock = Number(stock);
+
+        if (!name.trim()) {
+            alert("Product name cannot be empty.");
+            return;
+        }
+
+        if (!Number.isFinite(newPrice) || newPrice < 0) {
+            alert("Please enter a valid price.");
+            return;
+        }
+
+        if (!category.trim()) {
+            alert("Category cannot be empty.");
+            return;
+        }
+
+        if (!Number.isInteger(newStock) || newStock < 0) {
+            alert("Please enter a valid stock quantity.");
+            return;
+        }
+
+        const response = await fetch(
+            `${API}/products/${productId}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: name.trim(),
+                    description: product.description || "",
+                    price: newPrice,
+                    category: category.trim(),
+                    stock: newStock
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(
+                data.message ||
+                data.error ||
+                "Unable to update product."
+            );
+            return;
+        }
+
+        alert("Product updated successfully!");
+        loadSellerProducts();
+
+    } catch (error) {
+
+        console.error(error);
+        alert("Unable to connect to server.");
+    }
 }

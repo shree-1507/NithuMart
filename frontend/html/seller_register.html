@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Seller Registration - NithuMart</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>NithuMart</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="seller-login.html">
+            Seller Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="form-container">
+
+    <h2>Seller Registration</h2>
+
+
+    <form id="registerForm">
+
+
+        <label>Name</label>
+
+        <input
+            type="text"
+            id="name"
+            required
+        >
+
+
+
+        <label>Email</label>
+
+        <input
+            type="email"
+            id="email"
+            required
+        >
+
+
+
+        <label>Password</label>
+
+        <input
+            type="password"
+            id="password"
+            required
+        >
+
+
+
+        <!-- Seller role is fixed -->
+
+        <input
+            type="hidden"
+            id="role"
+            value="Seller"
+        >
+
+
+
+        <button type="submit">
+            Create Seller Account
+        </button>
+
+
+    </form>
+
+
+    <p id="message"></p>
+
+
+    <p>
+
+        Already have a Seller account?
+
+        <a href="seller-login.html">
+            Login here
+        </a>
+
+    </p>
+
+
+</main>
+
+
+<script src="../js/app.js"></script>
+
+</body>
+
+</html>
